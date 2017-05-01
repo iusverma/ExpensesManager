@@ -21,7 +21,7 @@ public class ExpensesForm extends JFrame{
 	private  JTextField tAdditionalDetails;
 	private  JButton bSubmit;
 	
-	public  void start() {
+	public void start() {
 		setLayout(new GridLayout(5, 2));
 
 		lDetails = new JLabel("Details");
@@ -49,7 +49,6 @@ public class ExpensesForm extends JFrame{
 				resetForm();
 			}
 		});
-
 		add(bSubmit);
 
 		setSize(400, 200);
