@@ -36,4 +36,14 @@ public class ExpensesDAL {
 		List<Expenses> list = new ArrayList<Expenses>(query.list());
 		return list;
 	}
+
+	public static List<Expenses> findWithMode(String mode){
+		System.out.println("[ExpensesDAL.findAll] Reading all db entires for EXPENSES table.");
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		Query query = session.createQuery("from Expenses where additional_details = :additional_details");
+		query.setParameter("additional_details", mode);
+		List<Expenses> list = new ArrayList<Expenses>(query.list());
+		return list;
+	}
 }

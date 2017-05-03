@@ -12,27 +12,15 @@ import home.em.base.Expenses;
 import home.em.dal.ExpensesDAL;
 import home.em.util.Utils;
 
-public class BasicReport extends JFrame{
-	List<Expenses> items;
-
-	public void generateReport(){
-		setLayout(new GridLayout(1, 0));
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		String[] columnNames = {"DATE",
-                "DETAILS",
-                "EXPENDITURE",
-                "ADDITIONAL DETAILS"};
-		final JTable table = new JTable(getData(), columnNames);
-		JScrollPane scrollPane = new JScrollPane(table);
-	    this.add(scrollPane, BorderLayout.CENTER);
-	    this.setSize(1024, 768);
-	    this.setLocation(25,25);
-	    this.setVisible(true);
-	}
+public class ModeSpecificReport extends BasicReport{
+	private String mode;
 	
+	public ModeSpecificReport(String mode){
+		this.mode = mode;
+	}
+
 	protected Object[][] getData(){
-		items = ExpensesDAL.findAll();
+		items = ExpensesDAL.findWithMode(mode);
 		int totalRowsToDisplay = items.size()+1;
 		String [][] data = new String[totalRowsToDisplay][4];
 		int count = 0;
