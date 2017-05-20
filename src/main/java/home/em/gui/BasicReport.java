@@ -1,9 +1,10 @@
 package home.em.gui;
 
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -18,11 +19,14 @@ import home.em.util.Utils;
 public class BasicReport extends JFrame {
 	List<Expenses> items;
 	private JButton bSubmit;
+	private JTable table;
 
 	public BasicReport() {
-		setLayout(new GridLayout(2, 0));
+		System.out.println("Beta 1.0, Only current month data is displayed!!!");
+		setLayout(new FlowLayout(FlowLayout.LEFT));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		bSubmit = new JButton("Submit");
+		bSubmit.setSize(150, 50);
 		bSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				generateReport();
@@ -40,14 +44,17 @@ public class BasicReport extends JFrame {
 
 	public void generateReport() {
 		String[] columnNames = { "DATE", "DETAILS", "EXPENDITURE", "ADDITIONAL DETAILS" };
-		final JTable table = new JTable(getData(), columnNames);
+		table = new JTable(getData(), columnNames);
 		JScrollPane scrollPane = new JScrollPane(table);
 		this.add(scrollPane, BorderLayout.CENTER);
 		this.setVisible(true);
 	}
 
 	protected Object[][] getData() {
-		items = ExpensesDAL.findAll();
+		Calendar cal = Calendar.getInstance();
+		int currentMonth = cal.get(Calendar.MONTH);
+		System.out.println("Current Month is: " +Integer.toString(currentMonth));
+		items = ExpensesDAL.findAllAfterDate(currentMonth);
 		int totalRowsToDisplay = items.size() + 1;
 		String[][] data = new String[totalRowsToDisplay][4];
 		int count = 0;
