@@ -1,0 +1,1 @@
+-- All create table scripts at one place
