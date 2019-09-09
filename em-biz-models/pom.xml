@@ -5,6 +5,12 @@
 	<artifactId>em-biz-models</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
+	<parent>
+		<groupId>com.ayush</groupId>
+		<artifactId>expensesmanager</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
 	<repositories>
 		<repository>
 			<id>JBoss repository</id>
